@@ -6,8 +6,7 @@ class RPGame(cli.Application):
     def main(self):
         with open('map_json.json') as file:
             data = json.load(file)
-        map_layout = MapLayout(data)    
-        print(map_layout.get_starting_room())
+        map_layout = MapLayout(data)
 
         #file = json.loads('map_json.json', r)
 if __name__ == "__main__":
