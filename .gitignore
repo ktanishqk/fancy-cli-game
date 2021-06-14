@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+map_json.json
+TableIt-master/TableIt.py
+.gitignore
+.gitignore
+TableIt-master/LICENSE
+TableIt-master/ImagesInREADME/TableIt_Colors.png
+TableIt-master/README.md
+TableIt.py
+ImagesInREADME/TableIt_Colors.png
