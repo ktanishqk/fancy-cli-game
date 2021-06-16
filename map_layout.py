@@ -18,3 +18,12 @@ class MapLayout:
 
     def get_locations(self):
         return self.locations
+    def get_location_from_name(self, location_name):
+        for location in self.locations:
+            if location.get_name() == location_name:
+                location_to_return = location
+                return location_to_return
+            else: 
+                "Location not found!" 
+
+
