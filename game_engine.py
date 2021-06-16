@@ -2,6 +2,9 @@ from map_layout import MapLayout
 from location import Location
 import TableIt
 from plumbum import cmd
+from rich import print
+from rich.console import Console
+from rich.table import Column, Table
 
 
 class GameEngine:
@@ -12,10 +15,12 @@ class GameEngine:
         self.current_room: Location
         self.inventory = []
         self.user_output_string: str
+        self.console = Console()
 
     def start_game(self):
-        print(
-            "Welcome to the Game! Your current room is " + self.current_room.get_name()
+        self.console.print(
+            f"[bold magenta]Welcome to the Game![/bold magenta] Your current room is [blue]{self.current_room.get_name()}[/blue] /n",
+            style="bold red",
         )
         self.examine_the_room()
         self.handle_input()
@@ -35,7 +40,7 @@ class GameEngine:
             elif "examine" in user_input_string:
                 self.examine_the_room()
             elif "info" in user_input_string:
-                self.print_inventory()   
+                self.print_inventory()
             else:
                 print(
                     "Stop right there. That doesn't look like a valid command, wanna try again?"
@@ -64,6 +69,7 @@ class GameEngine:
     def game_finished(self):
         print("You are exiting the game now!")
         quit()
+
     def take_item(self, item_name: str):
         item = self.current_room.get_item_from_name(item_name)
         if item == None:
@@ -84,22 +90,16 @@ class GameEngine:
 
     def examine_the_room(self) -> TableIt:
         # Creating a list to make pretty tables in the terminal using TableIT
-        output = [
-            ["CURRENT LOCATION",""],
-            ["DIRECTIONS TO GO",""],
-            ["ROOMS TO GO TO",""],
-            ["ITEMS IN THE ROOM",""],
-        ]
-        output[0][1] += self.current_room.get_name()
-        for direction in self.current_room.get_directions():
-            output[1][1] += "• " + direction.get_name() + " "
-            output[2][1] += "• " + direction.get_room() + " "
+        table = Table(title = "CURRENT LOCATION: " + self.current_room.get_name(), show_header=True, header_style = "bold red", title_style="bold magenta")
 
-        for item in self.current_room.get_items():
-            if item is not None:
-                output[3][1] += "• " + item.get_item_name() + " "
-        print()        
-        TableIt.printTable(output, color=(500, 100, 100, 600))
+        table.add_column("DIRECTIONS TO GO", style = "cyan", no_wrap= False)
+        table.add_column("ROOMS TO GO TO:", style= "magenta", no_wrap= False)
+        table.add_column("ITEMS IN THE ROOM", style = "green", no_wrap= False)
+        
+        for direction in self.current_room.get_directions():
+            table.add_row(direction.get_name(), direction.get_room(), self.current_room.get_item_names())
+
+        print(table)
         self.handle_input()
 
     def print_inventory(self) -> str:

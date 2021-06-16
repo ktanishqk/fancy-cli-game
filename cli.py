@@ -6,8 +6,9 @@ import pyfiglet
 
 
 class RPGame(cli.Application):
+    """ Main class  """
     def print_name(self):
-        print(pyfiglet.figlet_format("ADVENTURE RPG", font="slant"))
+        print(pyfiglet.figlet_format("ADVENTURE RPG", font="slant", justify = "right"))
 
     def main(self):
         self.print_name()

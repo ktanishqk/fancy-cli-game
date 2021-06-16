@@ -38,3 +38,8 @@ class Location:
 
     def remove_item(self, item: Item):
         self.items.remove(item)
+    def get_item_names(self):
+        output = ""
+        for item in self.items:
+            output += "• " + item.get_item_name() + " "   
+        return output    
