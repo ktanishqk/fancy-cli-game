@@ -92,7 +92,7 @@ class GameEngine:
 
         for direction in self.current_room.get_directions():
             output[1][1] += "• " + direction.get_name()
-            output[2][1] += "• " + direction.get_room()            
+            output[2][1] += "• " + direction.get_room()
         print(self.current_room.get_items())
         # if self.current_room.get_items() != None:
         #     for item in self.current_room.get_items():
