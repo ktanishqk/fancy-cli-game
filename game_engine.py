@@ -1,6 +1,7 @@
 from map_layout import MapLayout
 from location import Location
 import TableIt
+from plumbum import cmd
 
 
 class GameEngine:
@@ -34,7 +35,7 @@ class GameEngine:
             elif "examine" in user_input_string:
                 self.examine_the_room()
             elif "info" in user_input_string:
-                self.print_inventory()
+                self.print_inventory()   
             else:
                 print(
                     "Stop right there. That doesn't look like a valid command, wanna try again?"
@@ -61,8 +62,8 @@ class GameEngine:
         self.handle_input()
 
     def game_finished(self):
-        self.user_output_string = "You have completed the game"
-
+        print("You are exiting the game now!")
+        quit()
     def take_item(self, item_name: str):
         item = self.current_room.get_item_from_name(item_name)
         if item == None:
@@ -81,27 +82,26 @@ class GameEngine:
         self.examine_the_room()
         self.handle_input()
 
-    def examine_the_room(self):
-
+    def examine_the_room(self) -> TableIt:
+        # Creating a list to make pretty tables in the terminal using TableIT
         output = [
-            ["CURRENT LOCATION", self.current_room.get_name()],
-            ["DIRECTIONS TO GO", ""],
-            ["ROOMS TO GO TO", ""],
-            ["ITEMS IN THE ROOM", ""],
+            ["CURRENT LOCATION",""],
+            ["DIRECTIONS TO GO",""],
+            ["ROOMS TO GO TO",""],
+            ["ITEMS IN THE ROOM",""],
         ]
-
+        output[0][1] += self.current_room.get_name()
         for direction in self.current_room.get_directions():
-            output[1][1] += "• " + direction.get_name()
-            output[2][1] += "• " + direction.get_room()
-        print(self.current_room.get_items())
-        # if self.current_room.get_items() != None:
-        #     for item in self.current_room.get_items():
-        #             output[3][1] += "• " + item.get_item_name()
-        # else:
-        #     output[3][1] += "Doesn't look like the room has any items!"
-        TableIt.printTable(output, color=(100, 100, 100, 100))
+            output[1][1] += "• " + direction.get_name() + " "
+            output[2][1] += "• " + direction.get_room() + " "
+
+        for item in self.current_room.get_items():
+            if item is not None:
+                output[3][1] += "• " + item.get_item_name() + " "
+        print()        
+        TableIt.printTable(output, color=(500, 100, 100, 600))
         self.handle_input()
 
-    def print_inventory(self):
+    def print_inventory(self) -> str:
         print(f"{item.get_item_name}, " for item in self.inventory)
         self.handle_input()

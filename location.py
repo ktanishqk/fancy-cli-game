@@ -9,10 +9,9 @@ class Location:
         self.description = location.get("description")
         self.description: str
         self.items = location.get("item")
-        if self.items != None:
-            for i in range(len(self.items)):
-                item = self.items[i]
-                self.items[i] = Item(item)
+        for i in range(len(self.items)):
+            item = self.items[i]
+            self.items[i] = Item(item)
         self.directions = location.get("directions")
         for i in range(len(self.directions)):
             direction = self.directions[i]
