@@ -7,4 +7,6 @@ class Directions:
         return self.name
 
     def get_room(self):
+        if self.room == "TRAP":
+            return "SECRET PLACE"    
         return self.room
