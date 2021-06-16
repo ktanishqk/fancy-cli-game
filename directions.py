@@ -8,5 +8,5 @@ class Directions:
 
     def get_room(self):
         if self.room == "TRAP":
-            return "SECRET PLACE"
+            self.room = "Secret Place "
         return self.room
