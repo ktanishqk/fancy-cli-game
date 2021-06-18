@@ -8,6 +8,7 @@ from rich.table import Column, Table
 
 
 class GameEngine:
+    """ Engine class handles all the workings of the game and manages the game state """
     def __init__(self, map_layout: MapLayout):
         self.map_layout = map_layout
         self.map_layout: MapLayout
@@ -19,7 +20,7 @@ class GameEngine:
 
     def start_game(self):
         self.console.print(
-            f"[bold magenta]Welcome to the Game![/bold magenta] Your current room is [blue]{self.current_room.get_name()}[/blue] /n",
+            f"[bold magenta]Welcome to the Game![/bold magenta] Your current room is [blue]{self.current_room.get_name()}[/blue] \n",
             style="bold red",
         )
         self.examine_the_room()
